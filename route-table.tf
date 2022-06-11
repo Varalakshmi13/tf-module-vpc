@@ -6,9 +6,13 @@ resource "aws_route_table" "route-table" {
     vpc_peering_connection_id = aws_vpc_peering_connection.peer-connection.id
   }
 
-
-
   tags = {
     Name = "${var.ENV}-route-table"
   }
+}
+
+resource "aws_route_table_association" "rt-assoc" {
+  count = length(aws_subject_main.*.id)  
+  subnet_id      = element(aws_Subnet.main*.id, count.index)
+  route_table_id = aws_route_table.route-table.id
 }
