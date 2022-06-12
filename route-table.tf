@@ -12,7 +12,7 @@ resource "aws_route_table" "route-table" {
 }
 
 resource "aws_route_table_association" "rt-assoc" {
-  count = length(aws_subnet_main.*.id)  
+  count = length(aws_subnet.main.*.id)  
   subnet_id      = element(aws_subnet.main.*.id, count.index)
   route_table_id = aws_route_table.route-table.id
 }
