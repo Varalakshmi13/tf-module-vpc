@@ -12,7 +12,7 @@ resource "aws_route_table" "route-table" {
 }
 
 resource "aws_route_table_association" "rt-assoc" {
-  count = length(aws_subject_main.*.id)  
+  count = length(aws_subnet_main.*.id)  
   subnet_id      = element(aws_subnet.main.*.id, count.index)
   route_table_id = aws_route_table.route-table.id
 }
@@ -20,6 +20,5 @@ resource "aws_route_table_association" "rt-assoc" {
 resource "aws_route" "route-to-default-vpc" {
   route_table_id            = var.DEFAULT_VPC_RT
   destination_cidr_block    = var.VPC_CIDR
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer_connection.id
-  depends_on                = [aws_route_table.testing]
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer-connection.id
 }
