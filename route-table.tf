@@ -34,7 +34,7 @@ resource "aws_route_table" "private-route-table" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    aws_nat_gateway = aws_nat_gateway.ngw.id
+    nat_gateway_id = aws_nat_gateway.ngw.id
   }
 
   tags = {
